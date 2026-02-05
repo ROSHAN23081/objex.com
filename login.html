@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mobile Objex Secure Demo - Authentication">
+    <title>Mobile Objex | Secure Login</title>
+    <link rel="stylesheet" href="../css/mobile-objex.css">
+    <link rel="stylesheet" href="../css/security-ui.css">
+</head>
+<body class="auth-page">
+    <div class="security-container">
+        <!-- Security indicators -->
+        <div class="security-banner">
+            <span class="security-icon">🔒</span>
+            <span>Secure Connection | AES-256 Encryption | Session Protected</span>
+        </div>
+
+        <main class="auth-card">
+            <div class="brand-header">
+                <div class="logo">
+                    <div class="logo-icon">MO</div>
+                    <div class="logo-text">
+                        <span class="brand-name">Mobile Objex</span>
+                        <span class="tagline">Secure Messaging Demo</span>
+                    </div>
+                </div>
+            </div>
+
+            <form id="loginForm" class="secure-form" autocomplete="off">
+                <input type="hidden" id="csrfToken" name="_csrf">
+                
+                <div class="form-group">
+                    <label for="username">MO Username</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            required 
+                            pattern="[a-zA-Z0-9._-]{3,50}"
+                            placeholder="demo.operator"
+                            autocomplete="off"
+                        >
+                        <span class="input-icon">👤</span>
+                    </div>
+                    <span class="field-hint">Enter your Mobile Objex credentials</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required
+                            minlength="8"
+                            placeholder="••••••••"
+                            autocomplete="new-password"
+                        >
+                        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                            👁️
+                        </button>
+                    </div>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+
+                <div class="security-notice">
+                    <div class="notice-item">
+                        <span class="check">✓</span>
+                        <span>Session expires after 30 minutes of inactivity</span>
+                    </div>
+                    <div class="notice-item">
+                        <span class="check">✓</span>
+                        <span>All data encrypted in transit and at rest</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Secure Login</span>
+                    <span class="btn-loader hidden">⟳</span>
+                </button>
+            </form>
+
+            <div id="errorMessage" class="error-banner hidden" role="alert"></div>
+            
+            <div class="demo-info">
+                <p><strong>Demo Credentials:</strong></p>
+                <code>Username: demo.operator | Password: DemoPass123!</code>
+            </div>
+        </main>
+
+        <footer class="auth-footer">
+            <p>© 2024 Mobile Objex. All rights reserved.</p>
+            <p class="security-cert">🔐 SOC 2 Type II | ISO 27001 | GDPR Compliant</p>
+        </footer>
+    </div>
+
+    <script src="../js/auth.js"></script>
+</body>
+</html>
