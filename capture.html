@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Objex | Secure Data Capture</title>
+    <link rel="stylesheet" href="../css/mobile-objex.css">
+    <link rel="stylesheet" href="../css/security-ui.css">
+</head>
+<body class="capture-page">
+    <div class="security-container">
+        <div class="security-banner">
+            <span class="security-icon">🔒</span>
+            <span>Session Active | Data Encrypted | Auto-Logout in <span id="countdown">30:00</span></span>
+        </div>
+
+        <header class="demo-header">
+            <div class="header-content">
+                <div class="logo-small">
+                    <div class="logo-icon">MO</div>
+                    <span>Mobile Objex Demo</span>
+                </div>
+                <nav class="demo-nav">
+                    <a href="/pages/capture.html" class="nav-link active">Capture</a>
+                    <a href="/pages/messaging.html" class="nav-link">Messaging</a>
+                    <button id="logoutBtn" class="btn-logout">Secure Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="capture-grid">
+            <!-- Capture Form -->
+            <section class="capture-card">
+                <h2>
+                    <span>📱</span>
+                    Phone & Safety Code Capture
+                </h2>
+                
+                <div class="session-badge" id="sessionBadge">
+                    Session: <span id="sessionId">Loading...</span>
+                </div>
+
+                <form id="captureForm" class="secure-form">
+                    <input type="hidden" id="csrfToken" name="_csrf">
+                    
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number (E.164 format)</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="tel" 
+                                id="phoneNumber" 
+                                name="phoneNumber" 
+                                required
+                                pattern="^\+?[1-9]\d{1,14}$"
+                                placeholder="+1234567890"
+                                autocomplete="off"
+                            >
+                        </div>
+                        <span class="field-hint">Include country code (e.g., +1 for US)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPhoneNumber">Confirm Phone Number</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="tel" 
+                                id="confirmPhoneNumber" 
+                                name="confirmPhoneNumber" 
+                                required
+                                placeholder="+1234567890"
+                                autocomplete="off"
+                            >
+                        </div>
+                        <span class="match-indicator" id="phoneMatch"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="safetyCode">Safety Code</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="safetyCode" 
+                                name="safetyCode" 
+                                required
+                                pattern="[A-Z0-9-]{6,20}"
+                                placeholder="MO-2024-XXXX"
+                                autocomplete="off"
+                                style="text-transform: uppercase;"
+                            >
+                        </div>
+                        <span class="field-hint">6-20 alphanumeric characters</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmSafetyCode">Confirm Safety Code</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="confirmSafetyCode" 
+                                name="confirmSafetyCode" 
+                                required
+                                placeholder="MO-2024-XXXX"
+                                autocomplete="off"
+                                style="text-transform: uppercase;"
+                            >
+                        </div>
+                        <span class="match-indicator" id="codeMatch"></span>
+                    </div>
+
+                    <div class="security-actions">
+                        <button type="submit" class="btn-primary" id="captureBtn">
+                            <span class="btn-text">🔐 Secure Capture</span>
+                            <span class="btn-loader hidden">⟳</span>
+                        </button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                    </div>
+                </form>
+
+                <div id="captureSuccess" class="success-banner hidden" role="status">
+                    <span class="success-icon">✓</span>
+                    <div>
+                        <strong>Data Captured Securely</strong>
+                        <p>Encrypted and stored for this session only</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Preview -->
+            <section class="capture-card">
+                <h2>
+                    <span>📋</span>
+                    Session Data Preview
+                </h2>
+                
+                <div class="data-stats" id="dataStats">
+                    <div class="stat">
+                        <span class="stat-value" id="captureCount">0</span>
+                        <span class="stat-label">Captures</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="sessionTimer">30:00</span>
+                        <span class="stat-label">Remaining</span>
+                    </div>
+                </div>
+
+                <div class="data-preview" id="dataPreview">
+                    <div class="empty-state">
+                        <span class="empty-icon">📭</span>
+                        <p>No data captured in this session yet</p>
+                        <span>All captures are encrypted and session-bound</span>
+                    </div>
+                </div>
+
+                <div class="security-info">
+                    <h4>🔒 Security Features</h4>
+                    <ul>
+                        <li>Double-entry verification prevents typos</li>
+                        <li>Data encrypted with AES-256-GCM</li>
+                        <li>Auto-purged on logout or timeout</li>
+                        <li>No persistent storage of phone numbers</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="demo-footer">
+            <p>Session ID: <code id="footerSessionId">---</code> | User: <span id="currentUser">---</span></p>
+        </footer>
+    </div>
+
+    <script src="../js/capture.js"></script>
+</body>
+</html>
